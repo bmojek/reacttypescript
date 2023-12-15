@@ -3,14 +3,15 @@ import { PhotoType } from "../types/Photo.type";
 
 interface Props{
     photo : PhotoType
+    index : number
 }
 
-const Photo:FC<Props> = ({photo}) =>{
+const Photo:FC<Props> = ({photo,index}) =>{
     
     return(
-        <>
-            <img src={photo.url} alt={photo.title} />  
-        </>
+            <a href="/">
+                <img src={photo.url} alt={photo.title} />
+            </a>
     )
 }
 
