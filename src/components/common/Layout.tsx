@@ -4,10 +4,10 @@ import { Gallery } from "../routes/Gallery";
 import { Home } from "../routes/Home";
 import { Contact } from "../routes/Contact";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { FcGallery } from "react-icons/fc";
 import { Users } from "../routes/Users";
 import { Register } from "../routes/Register";
 import { Posts } from "../routes/Posts" 
+import  Login  from "../routes/Login";
 
 const Layout = () =>{
     
@@ -30,7 +30,7 @@ return(
         </li>
         <ul id="login">
         <li>
-          <Link to="/">Logowanie</Link>
+          <Link to="/Login">Logowanie</Link>
         </li>
         <li>
           <Link to="/Register">Rejestracja</Link>
@@ -47,6 +47,7 @@ return(
             <Route path="Users" element={<Users/>}/>
             <Route path="Register" element={<Register/>}/>
             <Route path="Posts" element={<Posts/>}/>
+            <Route path="Login" element={<Login/>}/>
 
         </Routes>
   </Router>

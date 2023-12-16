@@ -15,7 +15,7 @@ export const Users = () =>{
         .then(json => setUsers(json))
         .catch(err => setError(err))
     },[])
-
+    console.error(error)
 
     return(
         <div className="users">

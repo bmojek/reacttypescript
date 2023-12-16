@@ -11,6 +11,21 @@ export const Posts = () => {
   const [error, setError] = useState([]);
   const [users, setUsers] = useState<UserType[]>([]);
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [inputValue, setinputValue] = useState('');
+  const [visiblePosts, setVisiblePosts] = useState(10);
+
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+      setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 10);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -28,7 +43,7 @@ export const Posts = () => {
       .then((json) => setComments(json))
       .catch((err) => setError(err));
   }, []);
-
+  if(error.length>0) console.log(error); 
   type MergedPostType = PostType & { user: UserType; comments: CommentType[] };
 
   const mergePostsUsersComment = (): MergedPostType[] => {
@@ -43,17 +58,41 @@ export const Posts = () => {
     });
   };
 
-  const postsWithUsers = mergePostsUsersComment();
+  const getMaxId = () => {
+    return posts.reduce((maxId, post) => (post.id > maxId ? post.id : maxId), 0);
+  }
+  
+  const handleOnSubmit = (event:React.FormEvent<HTMLFormElement>,value : string) =>{
+    event?.preventDefault()
+      
+      const newPost:PostType ={
+        id:getMaxId()+1,
+        userId:1,
+        body:value,
+        title:"Title"
+      }
+      setPosts((posts)=>[...posts,newPost])
+      setinputValue('')
+  }
 
-  return (
+  const postsWithUsers = mergePostsUsersComment().reverse()
+  
+  return (<>
+    <div className='addPost'>
+      <h4>Dodaj post</h4>
+      <form onSubmit={(e) => handleOnSubmit(e,inputValue)}>
+        <input type="text" name="dodajPost" value={inputValue} onChange={(e) => setinputValue(e.target.value)} placeholder="Dodaj wpis"></input>
+      </form>
+    </div>
     <div className="posts-container">
       {posts.length === 0 ? (
         <Loader />
       ) : (
-        postsWithUsers.map((post, index) => (
-          <Post key={post.id} index={index} post={post} />
+        postsWithUsers.slice(0,visiblePosts).map((post, index) => (
+          <Post key={post.id} index={index} post={post} setComments={setComments}/>
         ))
       )}
     </div>
+    </>
   );
 };

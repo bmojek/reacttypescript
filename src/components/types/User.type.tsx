@@ -5,7 +5,7 @@ export interface UserType {
   email:    string;
   address:  Address;
   phone:    string;
-  website:  string;
+  password:  string;
   company:  Company;
 }
 
