@@ -1,10 +1,4 @@
 
-import "../style/Register.css"
-
-
-export const Register =() =>{
-    return(
-      <>
-      ok</>
-    );
+export const Register = () => {
+    return(<></>)
 }

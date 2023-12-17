@@ -2,16 +2,17 @@ import React, { FC, useState } from 'react';
 import { UserType } from '../types/User.type';
 import { PostType } from '../types/Post.type';
 import { CommentType } from '../types/Comment.type';
-
+import { useAuth } from './AuthProvider';
 
 type MergedPostType = PostType & { user: UserType; comments: CommentType[] };
 
 interface PostProps {
   post: MergedPostType;
-  index: number;
   setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
 }
-const Post: FC<PostProps> = ({ post, index,setComments }) => {
+const Post: FC<PostProps> = ({ post,setComments }) => {
+  
+  const { user } = useAuth();
   const [showAllComments, setShowAllComments] = useState(false);
   const [newComment, setNewComment] = useState('');
   
@@ -26,12 +27,11 @@ const Post: FC<PostProps> = ({ post, index,setComments }) => {
     const newCommentData: CommentType = {
       postId: post.id,
       id: post.comments.length + 1,
-      name: post.user.name,
+      name: user?.username,
       email: post.user.email,
       body: newComment,
     };
     
-
     setComments((prevComments) => [...prevComments, newCommentData]);
     setNewComment('');
   };

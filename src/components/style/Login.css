@@ -4,7 +4,7 @@
     padding: 20px;
     border-radius: 8px;
     width: 400px;
-    margin: 0 auto; /* Dodane, aby wyśrodkować na ekranie */
+    margin: 0 auto; 
   }
   
   .login-container label {

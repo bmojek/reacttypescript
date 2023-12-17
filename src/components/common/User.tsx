@@ -14,7 +14,6 @@ const User:FC<Props> = ({user,index}) =>{
                     <span  className="userCard">
                         <h1>{user.username}</h1>
                         <p>{user.name}</p>
-                        <p>Company: {user.company.name}</p>
                         <p>Email: {user.email}</p>
                     </span>
 

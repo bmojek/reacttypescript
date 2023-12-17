@@ -5,6 +5,8 @@ import "../style/Posts.css";
 import { PostType } from "../types/Post.type";
 import { UserType } from "../types/User.type";
 import { CommentType } from "../types/Comment.type";
+import { useAuth } from "../common/AuthProvider";
+
 
 export const Posts = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -13,6 +15,7 @@ export const Posts = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [inputValue, setinputValue] = useState('');
   const [visiblePosts, setVisiblePosts] = useState(10);
+  const {user} = useAuth();
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -67,7 +70,7 @@ export const Posts = () => {
       
       const newPost:PostType ={
         id:getMaxId()+1,
-        userId:1,
+        userId:user?user.id:1111,
         body:value,
         title:"Title"
       }
@@ -89,7 +92,8 @@ export const Posts = () => {
         <Loader />
       ) : (
         postsWithUsers.slice(0,visiblePosts).map((post, index) => (
-          <Post key={post.id} index={index} post={post} setComments={setComments}/>
+          
+          <Post key={post.id} post={post} setComments={setComments}/>
         ))
       )}
     </div>

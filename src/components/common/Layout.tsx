@@ -1,19 +1,19 @@
-import React from "react";
 import "../style/Layout.css"
 import { Gallery } from "../routes/Gallery";
 import { Home } from "../routes/Home";
 import { Contact } from "../routes/Contact";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { Users } from "../routes/Users";
+import  {Users}  from "../routes/Users";
 import { Register } from "../routes/Register";
 import { Posts } from "../routes/Posts" 
-import  Login  from "../routes/Login";
+import Logout from "../routes/Logout"
+import Login from "../routes/Login";
+import { AuthProvider } from "./AuthProvider";
 
 const Layout = () =>{
-    
-
 return(
     <Router>
+      <AuthProvider>
       <header>
       <ul>
         <li>
@@ -36,6 +36,11 @@ return(
           <Link to="/Register">Rejestracja</Link>
         </li>
         </ul>
+        <ul id="logout">
+        <li>
+          <Link to="/Logout">Wyloguj się</Link>
+        </li>
+        </ul>
       </ul>
 
       <hr />    
@@ -48,8 +53,9 @@ return(
             <Route path="Register" element={<Register/>}/>
             <Route path="Posts" element={<Posts/>}/>
             <Route path="Login" element={<Login/>}/>
-
+            <Route path="Logout" element={<Logout/>}/>
         </Routes>
+        </AuthProvider>
   </Router>
 );
 

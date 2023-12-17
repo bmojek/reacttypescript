@@ -32,9 +32,14 @@ ul a:hover{
     
     color: orange;
 }
-
-#login{
+#logout li a{
+    color: orange;
+}
+#logout, #login{
     display: inline;
     font-weight: bold;
     
+}
+#logout{
+    display: none;
 }
