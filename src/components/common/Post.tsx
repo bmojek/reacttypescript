@@ -2,7 +2,8 @@ import React, { FC, useState } from 'react';
 import { UserType } from '../types/User.type';
 import { PostType } from '../types/Post.type';
 import { CommentType } from '../types/Comment.type';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../contexts/AuthContext';
+import { useApiContext } from '../contexts/ApiContext';
 
 type MergedPostType = PostType & { user: UserType; comments: CommentType[] };
 
@@ -15,7 +16,8 @@ const Post: FC<PostProps> = ({ post,setComments }) => {
   const { user } = useAuth();
   const [showAllComments, setShowAllComments] = useState(false);
   const [newComment, setNewComment] = useState('');
-  
+  const {users} = useApiContext()
+  const foundUser = users.find((u) => u.username === user?.username);
   const toggleComments = () => {
     setShowAllComments(!showAllComments);
   };
@@ -28,7 +30,7 @@ const Post: FC<PostProps> = ({ post,setComments }) => {
       postId: post.id,
       id: post.comments.length + 1,
       name: user?.username,
-      email: post.user.email,
+      email: foundUser?.email || "/",
       body: newComment,
     };
     
@@ -49,7 +51,6 @@ const Post: FC<PostProps> = ({ post,setComments }) => {
       {visibleComments.map((comment) => (
         <div className="comment" key={comment.id}>
           <p><b>{comment.name}</b> /<i>{comment.email}</i></p>
-          
           <span>{comment.body}</span>
         </div>
       ))}

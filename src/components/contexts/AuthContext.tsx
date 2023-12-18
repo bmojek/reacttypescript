@@ -24,13 +24,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = (userData: User) => {
     if (userData) {
       setUser(userData);
-      console.log(userData)
     }
   };
 
   const logout = () => {
     setUser(null);
-    console.log(user)
   };
 
 

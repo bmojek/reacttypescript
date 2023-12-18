@@ -3,19 +3,20 @@ import Loader from "../common/Loader";
 import Post from "../common/Post";
 import "../style/Posts.css";
 import { PostType } from "../types/Post.type";
+import { useAuth } from "../contexts/AuthContext";
+import { useApiContext } from "../contexts/ApiContext";
+import { useNavigate } from "react-router-dom";
+import { MergedPostType } from "../types/MergedPost.type";
 import { UserType } from "../types/User.type";
-import { CommentType } from "../types/Comment.type";
-import { useAuth } from "../common/AuthProvider";
 
 
 export const Posts = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [error, setError] = useState([]);
-  const [users, setUsers] = useState<UserType[]>([]);
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const { setComments, posts, setPosts, users, comments } = useApiContext();
   const [inputValue, setinputValue] = useState('');
+  const [mergePostsUsersComment, setMergePostsUsersComment] = useState<MergedPostType[]>([]);
   const [visiblePosts, setVisiblePosts] = useState(10);
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -31,72 +32,69 @@ export const Posts = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => setUsers(json))
-      .catch((err) => setError(err));
-
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((json) => setPosts(json))
-      .catch((err) => setError(err));
-
-    fetch("https://jsonplaceholder.typicode.com/comments")
-      .then((response) => response.json())
-      .then((json) => setComments(json))
-      .catch((err) => setError(err));
-  }, []);
-  if(error.length>0) console.log(error); 
-  type MergedPostType = PostType & { user: UserType; comments: CommentType[] };
-
-  const mergePostsUsersComment = (): MergedPostType[] => {
-    return posts.map((post) => {
-      const user = users.find((u) => u.id === post.userId);
-      const postComments = comments.filter((comment) => comment.postId === post.id);
-      return {
-        ...post,
-        user: user || ({} as UserType),
-        comments: postComments || [],
-      };
-    });
-  };
+    const mergePostsUsers = (): MergedPostType[] => {
+      return posts.map((post) => {
+        const user = users.find((u) => u.id === post.userId);
+        const postComments = comments.filter((comment) => comment.postId === post.id);
+        return {
+          ...post,
+          user: user || ({} as UserType),
+          comments: postComments || [],
+        };
+      });
+    };
+    setMergePostsUsersComment(mergePostsUsers().reverse());
+  }, [posts, users, comments]);
 
   const getMaxId = () => {
     return posts.reduce((maxId, post) => (post.id > maxId ? post.id : maxId), 0);
-  }
-  
-  const handleOnSubmit = (event:React.FormEvent<HTMLFormElement>,value : string) =>{
-    event?.preventDefault()
-      
-      const newPost:PostType ={
-        id:getMaxId()+1,
-        userId:user?user.id:1111,
-        body:value,
-        title:"Title"
-      }
-      setPosts((posts)=>[...posts,newPost])
-      setinputValue('')
-  }
+  };
 
-  const postsWithUsers = mergePostsUsersComment().reverse()
+  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>, value: string) => {
+    event.preventDefault();
+    const newPost: PostType = {
+      userId: user?.id || NaN,
+      id: (getMaxId() || 0) + 1,
+      body: value,
+      title: "Title",
+    };
+    setPosts((posts) => [...posts, newPost]);
+    setinputValue('');
+  };
+
+  const postsWithUsers = mergePostsUsersComment;
+
   
-  return (<>
-    <div className='addPost'>
-      <h4>Dodaj post</h4>
-      <form onSubmit={(e) => handleOnSubmit(e,inputValue)}>
-        <input type="text" name="dodajPost" value={inputValue} onChange={(e) => setinputValue(e.target.value)} placeholder="Dodaj wpis"></input>
-      </form>
-    </div>
-    <div className="posts-container">
-      {posts.length === 0 ? (
-        <Loader />
-      ) : (
-        postsWithUsers.slice(0,visiblePosts).map((post, index) => (
-          
-          <Post key={post.id} post={post} setComments={setComments}/>
-        ))
-      )}
-    </div>
+
+  return (
+    <>
+      <div className={`LoginLink ${user ? 'display' : ''}`}>
+        <p>Zaloguj się żeby zobaczyć wpisy</p>
+        <button onClick={() => navigate("../Login")}>Logowanie</button>
+      </div>
+      <div className={` ${user ? '' : 'blur'}`}>
+        <div className='addPost'>
+          <h4>Dodaj post</h4>
+          <form onSubmit={(e) => handleOnSubmit(e, inputValue)}>
+            <input
+              type="text"
+              name="dodajPost"
+              value={inputValue}
+              onChange={(e) => setinputValue(e.target.value)}
+              placeholder="Dodaj wpis"
+            ></input>
+          </form>
+        </div>
+        <div className="posts-container">
+          {posts.length === 1 ? (
+            <Loader />
+          ) : (
+            postsWithUsers.slice(0, visiblePosts).map((post, index) => (
+              <Post key={post.id} post={post} setComments={(comments) => setComments(comments || [])} />
+            ))
+          )}
+        </div>
+      </div>
     </>
   );
 };

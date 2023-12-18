@@ -2,6 +2,6 @@ export type CommentType ={
     postId: number
   id: number
   name: string | undefined
-  email: string
+  email: string | undefined
   body: string
 }

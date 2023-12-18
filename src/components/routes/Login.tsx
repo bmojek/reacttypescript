@@ -1,28 +1,44 @@
 import React, { useState } from 'react';
-import { useAuth } from '../common/AuthProvider';
+import { useAuth } from '../contexts/AuthContext';
 import "../style/Login.css"
 import { useNavigate,Link } from 'react-router-dom';
+import { useApiContext } from '../contexts/ApiContext';
+
 
 const Login: React.FC = () => {
   const { login } = useAuth();
-  const [formData, setFormData] = useState({id:3, username: '', password: '' });
+  const [formData, setFormData] = useState({username: '', password: '' });
+  
   const navigate = useNavigate()
-
+  const {users} = useApiContext()
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();    
-    login(formData);
-     const loginElement = document.getElementById("login");
-     const logoutElement = document.getElementById("logout");
-    if (loginElement) {
-      loginElement.style.display = "none";
+    e.preventDefault();
+  
+    const foundUser = users.find((user) => user.username === formData.username);
+    
+    if (foundUser && foundUser.website === formData.password) {
+      const userId = foundUser.id; 
+      
+      login({id:userId, ...formData});
+  
+      const loginElement = document.getElementById("login");
+      const logoutElement = document.getElementById("logout");
+  
+      if (loginElement) {
+        loginElement.style.display = "none";
+      }
+  
+      if (logoutElement) {
+        logoutElement.style.display = "inline";
+      }
+  
+      navigate('/');
+    } else {
+      alert("Zle dane logowania");
     }
-    if (logoutElement) {
-      logoutElement.style.display = "inline";
-    }
-    navigate('/');
   };
-
+  
 
   return (
     <div className="login-container">

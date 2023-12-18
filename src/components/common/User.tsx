@@ -15,6 +15,7 @@ const User:FC<Props> = ({user,index}) =>{
                         <h1>{user.username}</h1>
                         <p>{user.name}</p>
                         <p>Email: {user.email}</p>
+                        <p>{user.website}</p>
                     </span>
 
                 </a>

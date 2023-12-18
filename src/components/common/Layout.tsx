@@ -1,19 +1,16 @@
 import "../style/Layout.css"
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { Gallery } from "../routes/Gallery";
 import { Home } from "../routes/Home";
-import { Contact } from "../routes/Contact";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import  {Users}  from "../routes/Users";
 import { Register } from "../routes/Register";
 import { Posts } from "../routes/Posts" 
 import Logout from "../routes/Logout"
 import Login from "../routes/Login";
-import { AuthProvider } from "./AuthProvider";
 
 const Layout = () =>{
 return(
     <Router>
-      <AuthProvider>
       <header>
       <ul>
         <li>
@@ -48,14 +45,12 @@ return(
         <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="Gallery" element={<Gallery/>} />
-            <Route path="Contact" element={<Contact/>} />
             <Route path="Users" element={<Users/>}/>
             <Route path="Register" element={<Register/>}/>
             <Route path="Posts" element={<Posts/>}/>
             <Route path="Login" element={<Login/>}/>
             <Route path="Logout" element={<Logout/>}/>
         </Routes>
-        </AuthProvider>
   </Router>
 );
 
