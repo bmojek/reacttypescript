@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { MergedPostType } from "../types/MergedPost.type";
 import { UserType } from "../types/User.type";
 
-
 export const Posts = () => {
   const { setComments, posts, setPosts, users, comments } = useApiContext();
-  const [inputValue, setinputValue] = useState('');
-  const [mergePostsUsersComment, setMergePostsUsersComment] = useState<MergedPostType[]>([]);
+  const [inputValue, setinputValue] = useState("");
+  const [mergePostsUsersComment, setMergePostsUsersComment] = useState<
+    MergedPostType[]
+  >([]);
   const [visiblePosts, setVisiblePosts] = useState(10);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -25,9 +26,9 @@ export const Posts = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -35,7 +36,9 @@ export const Posts = () => {
     const mergePostsUsers = (): MergedPostType[] => {
       return posts.map((post) => {
         const user = users.find((u) => u.id === post.userId);
-        const postComments = comments.filter((comment) => comment.postId === post.id);
+        const postComments = comments.filter(
+          (comment) => comment.postId === post.id
+        );
         return {
           ...post,
           user: user || ({} as UserType),
@@ -47,10 +50,16 @@ export const Posts = () => {
   }, [posts, users, comments]);
 
   const getMaxId = () => {
-    return posts.reduce((maxId, post) => (post.id > maxId ? post.id : maxId), 0);
+    return posts.reduce(
+      (maxId, post) => (post.id > maxId ? post.id : maxId),
+      0
+    );
   };
 
-  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>, value: string) => {
+  const handleOnSubmit = (
+    event: React.FormEvent<HTMLFormElement>,
+    value: string
+  ) => {
     event.preventDefault();
     const newPost: PostType = {
       userId: user?.id || NaN,
@@ -59,21 +68,19 @@ export const Posts = () => {
       title: "Title",
     };
     setPosts((posts) => [...posts, newPost]);
-    setinputValue('');
+    setinputValue("");
   };
 
   const postsWithUsers = mergePostsUsersComment;
 
-  
-
   return (
     <>
-      <div className={`LoginLink ${user ? 'display' : ''}`}>
+      <div className={`LoginLink ${user ? "display" : ""}`}>
         <p>Zaloguj się żeby zobaczyć wpisy</p>
         <button onClick={() => navigate("../Login")}>Logowanie</button>
       </div>
-      <div className={` ${user ? '' : 'blur'}`}>
-        <div className='addPost'>
+      <div className={` ${user ? "" : "blur"}`}>
+        <div className="addPost">
           <h4>Dodaj post</h4>
           <form onSubmit={(e) => handleOnSubmit(e, inputValue)}>
             <input
@@ -89,9 +96,15 @@ export const Posts = () => {
           {posts.length === 1 ? (
             <Loader />
           ) : (
-            postsWithUsers.slice(0, visiblePosts).map((post, index) => (
-              <Post key={post.id} post={post} setComments={(comments) => setComments(comments || [])} />
-            ))
+            postsWithUsers
+              .slice(0, visiblePosts)
+              .map((post, index) => (
+                <Post
+                  key={post.id}
+                  post={post}
+                  setComments={(comments) => setComments(comments || [])}
+                />
+              ))
           )}
         </div>
       </div>

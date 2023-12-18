@@ -1,4 +1,3 @@
-
 export const Register = () => {
-    return(<></>)
-}
+  return <></>;
+};

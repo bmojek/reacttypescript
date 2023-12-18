@@ -1,44 +1,42 @@
-import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import "../style/Login.css"
-import { useNavigate,Link } from 'react-router-dom';
-import { useApiContext } from '../contexts/ApiContext';
-
+import React, { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import "../style/Login.css";
+import { useNavigate, Link } from "react-router-dom";
+import { useApiContext } from "../contexts/ApiContext";
 
 const Login: React.FC = () => {
   const { login } = useAuth();
-  const [formData, setFormData] = useState({username: '', password: '' });
-  
-  const navigate = useNavigate()
-  const {users} = useApiContext()
+  const [formData, setFormData] = useState({ username: "", password: "" });
+
+  const navigate = useNavigate();
+  const { users } = useApiContext();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const foundUser = users.find((user) => user.username === formData.username);
-    
+
     if (foundUser && foundUser.website === formData.password) {
-      const userId = foundUser.id; 
-      
-      login({id:userId, ...formData});
-  
+      const userId = foundUser.id;
+
+      login({ id: userId, ...formData });
+
       const loginElement = document.getElementById("login");
       const logoutElement = document.getElementById("logout");
-  
+
       if (loginElement) {
         loginElement.style.display = "none";
       }
-  
+
       if (logoutElement) {
         logoutElement.style.display = "inline";
       }
-  
-      navigate('/');
+
+      navigate("/");
     } else {
       alert("Zle dane logowania");
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -50,7 +48,9 @@ const Login: React.FC = () => {
           id="username"
           name="username"
           value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
           required
         />
 
@@ -60,7 +60,9 @@ const Login: React.FC = () => {
           id="password"
           name="password"
           value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
           required
         />
 

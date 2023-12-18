@@ -5,9 +5,8 @@ import User from "../common/User";
 import "../style/Users.css";
 import { useApiContext } from "../contexts/ApiContext";
 
-
 export const Users: React.FC = () => {
-  const {users} = useApiContext()
+  const { users } = useApiContext();
 
   return (
     <div className="users">
