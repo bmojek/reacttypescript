@@ -1,27 +1,39 @@
-import React, { useState, useEffect } from "react";
-import Loader from "../common/Loader";
-import Photo from "../common/Photo";
 import "../style/Gallery.css";
+import { AlbumType } from "../types/Album.type";
+import { useApiContext } from "../contexts/ApiContext";
+import Album from "../common/Album";
 import { PhotoType } from "../types/Photo.type";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const Gallery = () => {
-  const [photos, setPhotos] = useState([]);
+  const { photos, albums } = useApiContext();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((response) => response.json())
-      .then((json) => setPhotos(json))
-      .catch((err) => console.error(err));
-  }, []);
+  const photosByAlbumId = albums.map((album: AlbumType) => ({
+    album,
+    photos: photos.filter((photo: PhotoType) => photo.albumId === album.id),
+  }));
+
   return (
-    <div className="Gallery">
-      {photos.length > 0 ? (
-        photos.map((photo: PhotoType, index) => (
-          <Photo photo={photo} index={index} key={index} />
-        ))
-      ) : (
-        <Loader />
-      )}
-    </div>
+    <>
+      <div className={`LoginLink ${user ? "display" : ""}`}>
+        <p>Zaloguj się żeby zobaczyć wpisy</p>
+        <button onClick={() => navigate("../Login")}>Logowanie</button>
+      </div>
+      <div className={`Gallery ${user ? "" : "blur"}`}>
+        <h3>Albumy</h3>
+        <hr />
+        {photosByAlbumId.map(
+          (
+            { album, photos }: { album: AlbumType; photos: PhotoType[] },
+            index
+          ) => (
+            <Album key={index} album={album} photos={photos} />
+          )
+        )}
+      </div>
+    </>
   );
 };

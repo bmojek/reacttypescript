@@ -32,7 +32,7 @@ const Login: React.FC = () => {
         logoutElement.style.display = "inline";
       }
 
-      navigate("/");
+      navigate(-1);
     } else {
       alert("Zle dane logowania");
     }

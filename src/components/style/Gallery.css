@@ -1,9 +1,28 @@
-a img {
-  width: 250px;
-  margin: 13px;
+.Album img {
+  width: 50px;
+  margin: 3px;
+  float: left;
 }
 
+.Album img:nth-child(2) {
+  width: 162px;
+}
 .Gallery {
   text-align: center;
   margin: 0 8%;
+  border: 3px solid rgb(53, 53, 53);
+  border-radius: 13px;
+}
+.Album {
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  width: 280px;
+  background-color: rgb(39, 39, 39);
+}
+.Album a {
+  text-decoration: none;
+  cursor: pointer;
+  color: rgb(220, 219, 221);
 }

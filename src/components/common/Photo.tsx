@@ -3,15 +3,10 @@ import { PhotoType } from "../types/Photo.type";
 
 interface Props {
   photo: PhotoType;
-  index: number;
 }
 
-const Photo: FC<Props> = ({ photo, index }) => {
-  return (
-    <a href="/">
-      <img src={photo.url} alt={photo.title} />
-    </a>
-  );
+const Photo: FC<Props> = ({ photo }) => {
+  return <img src={photo.thumbnailUrl} alt={photo.title} />;
 };
 
 export default Photo;
