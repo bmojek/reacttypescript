@@ -7,6 +7,10 @@
   margin: 10px auto;
 }
 
+.post h2::first-letter {
+  text-transform: uppercase;
+}
+
 .post img {
   height: 100px;
   border-radius: 50%;
@@ -32,7 +36,12 @@
   border-radius: 8px;
   margin: 12px 0;
 }
-
+.comment::first-letter {
+  text-transform: uppercase;
+}
+.comment span::first-letter {
+  text-transform: uppercase;
+}
 .addPost {
   width: 40%;
   text-align: center;

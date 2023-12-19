@@ -76,7 +76,7 @@ export const Posts = () => {
   return (
     <>
       <div className={`LoginLink ${user ? "display" : ""}`}>
-        <p>Zaloguj się żeby zobaczyć wpisy</p>
+        <p>Zaloguj się żeby zobaczyć Wpisy</p>
         <button onClick={() => navigate("../Login")}>Logowanie</button>
       </div>
       <div className={` ${user ? "" : "blur"}`}>

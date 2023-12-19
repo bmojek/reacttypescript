@@ -1,9 +1,9 @@
 import "../style/Layout.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { Gallery } from "../routes/Gallery";
-import { Home } from "../routes/Home";
+import Home from "../routes/Home";
 import { Users } from "../routes/Users";
-import { Register } from "../routes/Register";
+import Register from "../routes/Register";
 import { Posts } from "../routes/Posts";
 import Logout from "../routes/Logout";
 import Login from "../routes/Login";

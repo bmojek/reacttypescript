@@ -7,7 +7,6 @@ import { useApiContext } from "../contexts/ApiContext";
 const Login: React.FC = () => {
   const { login } = useAuth();
   const [formData, setFormData] = useState({ username: "", password: "" });
-
   const navigate = useNavigate();
   const { users } = useApiContext();
 
@@ -52,6 +51,7 @@ const Login: React.FC = () => {
             setFormData({ ...formData, username: e.target.value })
           }
           required
+          autoComplete="username"
         />
 
         <label htmlFor="password">Hasło</label>
@@ -64,6 +64,7 @@ const Login: React.FC = () => {
             setFormData({ ...formData, password: e.target.value })
           }
           required
+          autoComplete="current-password"
         />
 
         <button type="submit">Zaloguj</button>

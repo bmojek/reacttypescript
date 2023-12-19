@@ -114,7 +114,8 @@ export function useApiContext() {
     !setComments ||
     !comments ||
     !photos ||
-    !albums
+    !albums ||
+    !setUsers
   ) {
     throw new Error("u have to wrap by ApiProvider");
   }

@@ -10,7 +10,7 @@ const Album = ({
   photos: PhotoType[];
 }) => (
   <div className="Album">
-    <a href="">
+    <a href="/">
       <h4>{album.title}</h4>
       {photos.slice(0, 12).map((photo: PhotoType, index) => (
         <Photo key={index} photo={photo} />

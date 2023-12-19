@@ -26,3 +26,6 @@
   cursor: pointer;
   color: rgb(220, 219, 221);
 }
+.Album h4::first-letter {
+  text-transform: uppercase;
+}

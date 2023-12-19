@@ -19,7 +19,7 @@ export const Gallery = () => {
   return (
     <>
       <div className={`LoginLink ${user ? "display" : ""}`}>
-        <p>Zaloguj się żeby zobaczyć wpisy</p>
+        <p>Zaloguj się żeby zobaczyć Albumy</p>
         <button onClick={() => navigate("../Login")}>Logowanie</button>
       </div>
       <div className={`Gallery ${user ? "" : "blur"}`}>
