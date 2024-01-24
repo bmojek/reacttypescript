@@ -9,7 +9,7 @@ interface Props {
 const User: FC<Props> = ({ user, index }) => {
   return (
     <>
-      <a href={"/Users/" + index}>
+      <a>
         <span className="userCard">
           <h1>{user.username}</h1>
           <p>{user.name}</p>

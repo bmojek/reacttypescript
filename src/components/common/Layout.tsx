@@ -7,6 +7,7 @@ import Register from "../routes/Register";
 import { Posts } from "../routes/Posts";
 import Logout from "../routes/Logout";
 import Login from "../routes/Login";
+import AlbumPage from "../routes/AlbumPage";
 
 const Layout = () => {
   return (
@@ -45,6 +46,7 @@ const Layout = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="Gallery" element={<Gallery />} />
+        <Route path="Album/:albumId" element={<AlbumPage />} />
         <Route path="Users" element={<Users />} />
         <Route path="Register" element={<Register />} />
         <Route path="Posts" element={<Posts />} />
