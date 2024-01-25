@@ -41,7 +41,10 @@ const Post: FC<PostProps> = ({ post, setComments, avatarUrl }) => {
   };
   return (
     <div className="post">
-      <img src={avatarUrl} alt="Placeholder" />
+      <img
+        src={avatarUrl ? avatarUrl : "https://via.placeholder.com/600/f1a745"}
+        alt="Placeholder"
+      />
       <h1>{post.user.username}</h1>
       <h2>{post.body}</h2>
       <p id="comCount" onClick={toggleComments}>
@@ -59,7 +62,7 @@ const Post: FC<PostProps> = ({ post, setComments, avatarUrl }) => {
       {visibleComments.map((comment) => (
         <div className="comment" key={comment.id}>
           <p>
-            <b>{comment.name}</b> /<i>{comment.email}</i>
+            <b>{comment.email}</b>
           </p>
           <span>{comment.body}</span>
         </div>

@@ -23,6 +23,8 @@ interface ApiContextProps {
   albums?: AlbumType[];
   todos?: ToDoType[];
   setTodos?: React.Dispatch<React.SetStateAction<ToDoType[]>>;
+  setAlbums?: React.Dispatch<React.SetStateAction<AlbumType[]>>;
+  setPhotos?: React.Dispatch<React.SetStateAction<PhotoType[]>>;
 }
 
 const ApiContext = createContext<ApiContextProps>({});
@@ -100,6 +102,8 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
         albums,
         todos,
         setTodos,
+        setAlbums,
+        setPhotos,
       }}
     >
       {children}
@@ -119,6 +123,8 @@ export function useApiContext() {
     albums,
     todos,
     setTodos,
+    setAlbums,
+    setPhotos,
   } = useContext(ApiContext) || {};
   if (
     !users ||
@@ -130,7 +136,9 @@ export function useApiContext() {
     !albums ||
     !setUsers ||
     !todos ||
-    !setTodos
+    !setTodos ||
+    !setAlbums ||
+    !setPhotos
   ) {
     throw new Error("u have to wrap by ApiProvider");
   }
@@ -145,6 +153,8 @@ export function useApiContext() {
     albums,
     todos,
     setTodos,
+    setAlbums,
+    setPhotos,
   };
 }
 
