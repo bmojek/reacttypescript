@@ -8,6 +8,7 @@ import { Posts } from "../routes/Posts";
 import Logout from "../routes/Logout";
 import Login from "../routes/Login";
 import AlbumPage from "../routes/AlbumPage";
+import { Todos } from "../routes/Todos";
 
 const Layout = () => {
   return (
@@ -22,6 +23,9 @@ const Layout = () => {
           </li>
           <li>
             <Link to="/Gallery">Galeria</Link>
+          </li>
+          <li>
+            <Link to="/Todos">Zadania</Link>
           </li>
           <li>
             <Link to="/Users">Użytkownicy</Link>
@@ -52,6 +56,7 @@ const Layout = () => {
         <Route path="Posts" element={<Posts />} />
         <Route path="Login" element={<Login />} />
         <Route path="Logout" element={<Logout />} />
+        <Route path="Todos" element={<Todos />} />
       </Routes>
     </Router>
   );

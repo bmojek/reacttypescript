@@ -9,10 +9,10 @@
 }
 
 .photo-carousel img {
-  width: 50%;
   height: 300px;
   object-fit: cover;
   margin: 0 auto;
+  width: 45%;
 }
 
 .latest-posts {
@@ -27,24 +27,19 @@
       margin-bottom: 5px;
     }
   }
-  width: 45%;
   border: 3px solid white;
-  padding: 20px;
   border-radius: 10px;
 
   cursor: pointer;
-  display: inline-block;
 }
 
 .latest-albums {
-  width: 45%;
-  display: inline-block;
+  width: 100px;
   border: 3px solid white;
   border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
   cursor: pointer;
 }
 .latest-albums img {
-  width: 20%;
+  width: 5%;
+  padding: 5px 30px;
 }

@@ -1,0 +1,39 @@
+.todos {
+  margin-top: 20px;
+}
+
+.todos h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.todos table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.todos table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.todos table td:first-child {
+  width: 80%;
+}
+
+.todos table td:last-child {
+  text-align: center;
+}
+.todoDone {
+  transform: scale(2);
+}
+.todos-container {
+  width: 80%;
+  margin: 0 auto;
+}
+.todos input {
+  width: 60%;
+  margin-left: 20%;
+}

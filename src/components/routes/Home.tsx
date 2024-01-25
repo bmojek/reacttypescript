@@ -54,8 +54,8 @@ const Home: React.FC = () => {
       </div>
       <div className="latest-albums" onClick={handleOnClickGallery}>
         <h3>Najnowsze albumy</h3>
-        {photos.slice(0, 4).map((photo: PhotoType) => (
-          <img src={photo.url} alt="" />
+        {photos.slice(0, 8).map((photo: PhotoType) => (
+          <img key={photo.id} src={photo.url} alt="" />
         ))}
       </div>
     </div>

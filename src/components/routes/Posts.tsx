@@ -10,7 +10,8 @@ import { MergedPostType } from "../types/MergedPost.type";
 import { UserType } from "../types/User.type";
 
 export const Posts = () => {
-  const { setComments, posts, setPosts, users, comments } = useApiContext();
+  const { setComments, posts, setPosts, users, comments, photos, albums } =
+    useApiContext();
   const [inputValue, setinputValue] = useState("");
   const [mergePostsUsersComment, setMergePostsUsersComment] = useState<
     MergedPostType[]
@@ -73,6 +74,18 @@ export const Posts = () => {
 
   const postsWithUsers = mergePostsUsersComment;
 
+  const getAvatarUrl = (userId: number): string | undefined => {
+    const userAlbum = albums.find((album) => album.userId === userId);
+    if (userAlbum) {
+      const userPhotos = photos.filter(
+        (photo) => photo.albumId === userAlbum.id
+      );
+      if (userPhotos.length > 0) {
+        return userPhotos[0].url;
+      }
+    }
+    return undefined;
+  };
   return (
     <>
       <div className={`LoginLink ${user ? "display" : ""}`}>
@@ -98,10 +111,11 @@ export const Posts = () => {
           ) : (
             postsWithUsers
               .slice(0, visiblePosts)
-              .map((post, index) => (
+              .map((post) => (
                 <Post
                   key={post.id}
                   post={post}
+                  avatarUrl={getAvatarUrl(post.userId)}
                   setComments={(comments) => setComments(comments || [])}
                 />
               ))

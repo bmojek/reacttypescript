@@ -29,3 +29,7 @@
 .Album h4::first-letter {
   text-transform: uppercase;
 }
+.Gallery button {
+  margin-left: 10px;
+  text-align: left;
+}

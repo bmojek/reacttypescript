@@ -10,6 +10,7 @@ import { PostType } from "../types/Post.type";
 import { CommentType } from "../types/Comment.type";
 import { PhotoType } from "../types/Photo.type";
 import { AlbumType } from "../types/Album.type";
+import { ToDoType } from "../types/Todo.type";
 
 interface ApiContextProps {
   users?: UserType[];
@@ -20,6 +21,8 @@ interface ApiContextProps {
   comments?: CommentType[];
   photos?: PhotoType[];
   albums?: AlbumType[];
+  todos?: ToDoType[];
+  setTodos?: React.Dispatch<React.SetStateAction<ToDoType[]>>;
 }
 
 const ApiContext = createContext<ApiContextProps>({});
@@ -31,6 +34,7 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
   const [posts, setPosts] = useState<PostType[]>([]);
   const [users, setUsers] = useState<UserType[]>([]);
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [todos, setTodos] = useState<ToDoType[]>([]);
 
   useEffect(() => {
     const newuser: UserType = {
@@ -70,6 +74,11 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
         );
         const albumJson = await albumResponse.json();
         setAlbums(albumJson);
+        const todoResponse = await fetch(
+          "https://jsonplaceholder.typicode.com/todos"
+        );
+        const todoJson = await todoResponse.json();
+        setTodos(todoJson);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -89,6 +98,8 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({
         comments,
         photos,
         albums,
+        todos,
+        setTodos,
       }}
     >
       {children}
@@ -106,6 +117,8 @@ export function useApiContext() {
     comments,
     photos,
     albums,
+    todos,
+    setTodos,
   } = useContext(ApiContext) || {};
   if (
     !users ||
@@ -115,7 +128,9 @@ export function useApiContext() {
     !comments ||
     !photos ||
     !albums ||
-    !setUsers
+    !setUsers ||
+    !todos ||
+    !setTodos
   ) {
     throw new Error("u have to wrap by ApiProvider");
   }
@@ -128,6 +143,8 @@ export function useApiContext() {
     comments,
     photos,
     albums,
+    todos,
+    setTodos,
   };
 }
 
