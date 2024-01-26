@@ -38,3 +38,12 @@
   text-transform: uppercase;
   
 }
+.Gallery button {
+  margin-left: 10px;
+  text-align: left;
+  transition: all 0.3s;
+}
+.Gallery button:hover{
+  transform: translateY(-10px);
+  background-color: rgb(28, 121, 15);
+}

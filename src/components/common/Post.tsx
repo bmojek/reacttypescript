@@ -9,9 +9,10 @@ type MergedPostType = PostType & { user: UserType; comments: CommentType[] };
 
 interface PostProps {
   post: MergedPostType;
+  avatarUrl: string | undefined;
   setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
 }
-const Post: FC<PostProps> = ({ post, setComments }) => {
+const Post: FC<PostProps> = ({ post, setComments, avatarUrl }) => {
   const { user } = useAuth();
   const [showAllComments, setShowAllComments] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -40,7 +41,10 @@ const Post: FC<PostProps> = ({ post, setComments }) => {
   };
   return (
     <div className="post">
-      <img src="https://via.placeholder.com/150/771796" alt="Placeholder" />
+      <img
+        src={avatarUrl ? avatarUrl : "https://via.placeholder.com/600/f1a745"}
+        alt="Placeholder"
+      />
       <h1>{post.user.username}</h1>
       <h2>{post.body}</h2>
       <p id="comCount" onClick={toggleComments}>
@@ -58,7 +62,7 @@ const Post: FC<PostProps> = ({ post, setComments }) => {
       {visibleComments.map((comment) => (
         <div className="comment" key={comment.id}>
           <p>
-            <b>{comment.name}</b> /<i>{comment.email}</i>
+            <b>{comment.email}</b>
           </p>
           <span>{comment.body}</span>
         </div>

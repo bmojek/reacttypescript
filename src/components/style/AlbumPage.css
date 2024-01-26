@@ -1,0 +1,10 @@
+.album-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.album-container img {
+  width: 18%;
+  margin: 10px;
+  min-width: 350px;
+}
