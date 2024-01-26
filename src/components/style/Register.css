@@ -1,5 +1,5 @@
 .register-container {
-  background-color: #252222;
+  background-color: rgb(11, 140, 245);
   padding: 20px;
   border-radius: 8px;
   width: 400px;
@@ -35,10 +35,12 @@
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
+  transition: all 0.3s;
 }
 
 .register-container button:hover {
-  background-color: #45a049;
+  background-color: rgb(28, 121, 15);
+  transform: translateY(-10px);
 }
 
 .register-container .form-group {

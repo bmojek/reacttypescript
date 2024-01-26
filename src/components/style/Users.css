@@ -1,5 +1,5 @@
 .userCard {
-  background-color: #0a69d6;
+  background-color: rgb(53, 53, 53);
   opacity: 0.7;
   display: inline-block;
   margin: 13px;
@@ -9,9 +9,17 @@
   border-radius: 13px;
   color: white;
   text-align: left;
+  transition: all 0.3s;
 }
 
 .users {
   margin: 0 8%;
   text-align: center;
+  background-color: rgb(11, 140, 245);
+  border-radius: 25px;
+}
+
+.userCard:hover{
+  background-color: rgb(28, 121, 15);
+  transform: translateY(-10px);
 }

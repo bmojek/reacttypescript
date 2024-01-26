@@ -4,14 +4,17 @@
   float: left;
 }
 
+
 .Album img:nth-child(2) {
   width: 162px;
 }
 .Gallery {
   text-align: center;
   margin: 0 8%;
-  border: 3px solid rgb(53, 53, 53);
+  border: 3px solid rgb(10, 1, 1);
   border-radius: 13px;
+  background-color: rgb(11, 140, 245);
+  
 }
 .Album {
   border: 1px solid black;
@@ -19,13 +22,19 @@
   border-radius: 5px;
   display: inline-block;
   width: 280px;
-  background-color: rgb(39, 39, 39);
+  background-color: rgb(31, 13, 13);
+  transition: all 0.3s;
+}
+.Album:hover{
+  background-color: rgb(28, 121, 15);
+  transform: translateY(-10px);
 }
 .Album a {
   text-decoration: none;
   cursor: pointer;
-  color: rgb(220, 219, 221);
+  color: rgb(141, 140, 143);
 }
 .Album h4::first-letter {
   text-transform: uppercase;
+  
 }

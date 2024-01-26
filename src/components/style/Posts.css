@@ -2,7 +2,7 @@
   border-radius: 12px;
   padding: 16px;
   margin: 16px 0;
-  background-color: rgb(63, 64, 78);
+  background-color: rgb(11, 140, 245);
   width: 800px;
   margin: 10px auto;
 }
@@ -21,7 +21,7 @@
 .post h1 {
   margin-bottom: 8px;
   font-size: 1.2em;
-  color: orange;
+  color: rgb(7, 5, 0);
   margin-left: 20px;
 }
 
@@ -31,10 +31,11 @@
 }
 
 .comment {
-  background-color: rgb(89, 90, 109);
+  background-color: rgb(28, 121, 15);
   padding: 12px;
   border-radius: 8px;
   margin: 12px 0;
+  
 }
 .comment::first-letter {
   text-transform: uppercase;
@@ -76,10 +77,13 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s;
+
 }
 
 button:hover {
   background-color: #084b8a;
+  transform: translateY(-10px);
 }
 .blur {
   filter: blur(4px);
